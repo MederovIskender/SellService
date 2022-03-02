@@ -16,6 +16,5 @@ public class SendSimpleMessageImpl implements SendSimpleMessage {
         message.setSubject("Код потверждения");
         message.setText("Ваш код подтверждения: "+text);
         mailSender.send(message);
-
     }
 }
