@@ -20,5 +20,5 @@ public class AppUser {
     String name;
     String login;
     boolean active;
-    LocalDateTime blockDate;
+    LocalDateTime blockEndDate;
 }

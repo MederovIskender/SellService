@@ -12,11 +12,17 @@ import org.springframework.web.bind.annotation.*;
 public class AppUserController {
     private AppUserService appUserService;
 
-    @PostMapping("/saveAppUser")
+    @PostMapping("/saveUser")
     public ResponseEntity<?> saveUser(@RequestBody AppUserCreationDto appUserCreationDto){
         return appUserService.saveAppUser(appUserCreationDto);
     }
+    @PostMapping("/sendCode")
     public ResponseEntity<?> sendCode(@RequestParam String login){
         return appUserService.sendCode(login);
+    }
+
+    @GetMapping("/token")
+    public ResponseEntity<?> getToken(@RequestParam String login, String code){
+        appUserService.getToken(login,code);
     }
 }

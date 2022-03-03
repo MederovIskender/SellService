@@ -14,5 +14,5 @@ public class AppUserEntityDto {
     String name;
     String login;
     boolean active;
-    LocalDateTime block_date;
+    LocalDateTime blockEndDate;
 }
