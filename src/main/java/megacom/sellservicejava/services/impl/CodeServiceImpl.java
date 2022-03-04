@@ -22,7 +22,6 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Service
-@Transactional
 public class CodeServiceImpl implements CodeService {
 
     public CodeServiceImpl(CodeRepo codeRepo, SendSimpleMessage sendSimpleMessage) {
@@ -43,7 +42,7 @@ public class CodeServiceImpl implements CodeService {
         AppCode lastCode = findLastCode(appUserCreationDto);
         if (Objects.nonNull(lastCode)){
             lastCode.setCodeStatus(CodeStatus.CANCELLED);
-            //codeREpo.save(lastCode);
+            codeRepo.save(lastCode);
         }
 
         int code = (int) ((Math.random()*9000)+1000);
@@ -54,7 +53,7 @@ public class CodeServiceImpl implements CodeService {
         savedCode.setEndDate(LocalDateTime.now().plusMinutes(3));
         savedCode.setCodeStatus(CodeStatus.NEW);
         savedCode.setAppUser(AppUserMapper.INSTANCE.AppUserCreateDtoToAppUser(appUserCreationDto));
-        //AppCodeRepo.save(savedCode);
+        codeRepo.save(savedCode);
         sendSimpleMessage.sendSimpleMessage(appUserCreationDto.getLogin(), Integer.toString(code));
     }
 
