@@ -37,6 +37,7 @@ public class CodeServiceImpl implements CodeService {
         AppCode lastCode = findLastCode(appUserCreationDto);
         if (Objects.nonNull(lastCode)){
             lastCode.setCodeStatus(CodeStatus.CANCELLED);
+            //codeREpo.save(lastCode);
         }
 
         int code = (int) ((Math.random()*9000)+1000);
@@ -48,7 +49,6 @@ public class CodeServiceImpl implements CodeService {
         savedCode.setCodeStatus(CodeStatus.NEW);
         savedCode.setAppUser(AppUserMapper.INSTANCE.AppUserCreateDtoToAppUser(appUserCreationDto));
         //AppCodeRepo.save(savedCode);
-
         sendSimpleMessage.sendSimpleMessage(appUserCreationDto.getLogin(), Integer.toString(code));
     }
 

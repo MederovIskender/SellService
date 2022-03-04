@@ -8,6 +8,7 @@ public interface AppUserService {
     ResponseEntity<?> saveAppUser(AppUserCreationDto appUserCreationDto);
 
     ResponseEntity<?> sendCode(String login);
+
     boolean AppUserLockOutChecking(AppUser appUser);
 
     ResponseEntity<?> getToken(String login, String code);

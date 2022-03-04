@@ -1,5 +1,7 @@
 package megacom.sellservicejava.services.impl;
 
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import megacom.sellservicejava.enums.CodeStatus;
 import megacom.sellservicejava.mappers.AppCodeMapper;
@@ -21,6 +23,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalUnit;
+import java.util.Date;
 import java.util.Objects;
 
 @RequiredArgsConstructor
@@ -58,7 +61,6 @@ public class AppUserServiceImpl implements AppUserService {
             LocalDateTime remainingBlockTime = LocalDateTime.now().until(appUser.getBlockEndDate(), ChronoUnit.MINUTES)
             return new ResponseEntity<>("Превышено количество попыток входа, вы заблокированы. Повторите попытку через " + formatToShowEndDate.format(remainingBlockTime),
                     HttpStatus.CONFLICT);
-            appUser.getBlockEndDate().format(formatToShowEndDate)
         }
         codeService.sendCode(AppUserMapper.INSTANCE.AppUserToAppUserCreateDto(appUser));
         return ResponseEntity.ok("код успешно отправлен");
@@ -82,7 +84,7 @@ public class AppUserServiceImpl implements AppUserService {
         }
         boolean check = AppUserLockOutChecking(appUser);
         if (check){
-            return new ResponseEntity<>("Превышено количество попыток входа, вы заблокированы. Повторите попытку", HttpStatus.CONFLICT);
+            return new ResponseEntity<>("Превышено количество попыток входа, вы заблокированы. Повторите попытку позже", HttpStatus.CONFLICT);
         }
         AppCodeEntityDto checkUserCode = AppCodeMapper.INSTANCE.AppCodeToAppCodeEntityDto(
                 codeService.findLastCode(AppUserMapper.INSTANCE.AppUserToAppUserCreateDto(appUser)));
@@ -93,7 +95,7 @@ public class AppUserServiceImpl implements AppUserService {
         if (!BCrypt.checkpw(code,checkUserCode.getCode())){
             requestService.saveRequest(checkUserCode, false);
             if(requestService.countFailedAttempts(checkUserCode)>=3){
-                appUser.setBlockEndDate(LocalDateTime.now().plusMinutes(3);
+                appUser.setBlockEndDate(LocalDateTime.now().plusMinutes(3));
                 appUserRepo.save(appUser);
                 checkUserCode.setCodeStatus(CodeStatus.FAILED);
                 codeService.saveCode(checkUserCode);
@@ -105,13 +107,14 @@ public class AppUserServiceImpl implements AppUserService {
         String token =
                 Jwts.builder()
                         .claim("login e-mail", login)
-                        .setExpiration(tokensTimeLife)
+                        .setExpiration(new Date())
                         .signWith(
                                 SignatureAlgorithm.HS256
                                 , secretKey)
                         .compact();
 
 
+        return null;
     }
 }
 

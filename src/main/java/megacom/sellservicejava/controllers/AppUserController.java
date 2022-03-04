@@ -23,6 +23,7 @@ public class AppUserController {
 
     @GetMapping("/token")
     public ResponseEntity<?> getToken(@RequestParam String login, String code){
-        appUserService.getToken(login,code);
+
+        return appUserService.getToken(login,code);
     }
 }
