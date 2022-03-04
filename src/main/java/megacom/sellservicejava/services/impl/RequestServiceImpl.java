@@ -11,9 +11,10 @@ import megacom.sellservicejava.services.RequestService;
 import org.springframework.stereotype.Service;
 
 @Service
-@AllArgsConstructor
-@NoArgsConstructor
 public class RequestServiceImpl implements RequestService {
+    public RequestServiceImpl(RequestRepo requestRepo) {
+        this.requestRepo = requestRepo;
+    }
 
     RequestRepo requestRepo;
     @Override

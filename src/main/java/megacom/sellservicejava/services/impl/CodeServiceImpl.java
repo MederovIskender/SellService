@@ -22,10 +22,13 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Service
-@AllArgsConstructor
-@NoArgsConstructor
 @Transactional
 public class CodeServiceImpl implements CodeService {
+
+    public CodeServiceImpl(CodeRepo codeRepo, SendSimpleMessage sendSimpleMessage) {
+        this.codeRepo = codeRepo;
+        this.sendSimpleMessage = sendSimpleMessage;
+    }
 
     CodeRepo codeRepo;
     SendSimpleMessage sendSimpleMessage;

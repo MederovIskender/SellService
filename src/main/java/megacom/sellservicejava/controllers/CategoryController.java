@@ -7,10 +7,10 @@ import megacom.sellservicejava.services.CategoryService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RequiredArgsConstructor
 @RestController
 @RequestMapping("api/v1/category")
 public class CategoryController {
+
     CategoryService categoryService;
 
     @PostMapping

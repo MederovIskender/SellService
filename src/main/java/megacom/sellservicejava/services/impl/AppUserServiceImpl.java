@@ -29,13 +29,17 @@ import java.time.temporal.TemporalUnit;
 import java.util.Date;
 import java.util.Objects;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Service
 public class AppUserServiceImpl implements AppUserService {
     AppUserRepo appUserRepo;
     CodeService codeService;
     RequestService requestService;
+
+    public AppUserServiceImpl(AppUserRepo appUserRepo, CodeService codeService, RequestService requestService) {
+        this.appUserRepo = appUserRepo;
+        this.codeService = codeService;
+        this.requestService = requestService;
+    }
 
     @Value("${jwtSecret}")
     private String secretKey;
@@ -45,6 +49,7 @@ public class AppUserServiceImpl implements AppUserService {
         AppUser appUser = new AppUser();
         appUser.setName(appUserCreationDto.getName());
         appUser.setLogin(appUserCreationDto.getLogin());
+        appUser.setActive(true);
         if(Objects.isNull(appUserRepo.findByLogin(appUser.getLogin()))){
             appUserRepo.save(appUser);
         } else {
