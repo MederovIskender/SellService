@@ -1,5 +1,7 @@
 package megacom.sellservicejava.services.impl;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import megacom.sellservicejava.mappers.AppCodeMapper;
 import megacom.sellservicejava.models.dtos.AppCodeDtos.AppCodeEntityDto;
@@ -9,7 +11,8 @@ import megacom.sellservicejava.services.RequestService;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 public class RequestServiceImpl implements RequestService {
 
     RequestRepo requestRepo;

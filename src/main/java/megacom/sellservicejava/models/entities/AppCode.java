@@ -26,6 +26,7 @@ public class AppCode {
     CodeStatus codeStatus;
 
     @ManyToOne
+    @JoinColumn(name = "id_AppUser")
     AppUser appUser;
 
 

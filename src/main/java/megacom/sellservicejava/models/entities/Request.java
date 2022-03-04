@@ -21,7 +21,10 @@ public class Request {
     boolean success;
     @CreationTimestamp
     LocalDateTime addDate;
+
+
     @ManyToOne
+    @JoinColumn(name = "id_appCode")
     AppCode appCode;
 
 }

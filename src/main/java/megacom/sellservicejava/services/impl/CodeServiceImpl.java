@@ -1,5 +1,7 @@
 package megacom.sellservicejava.services.impl;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import megacom.sellservicejava.enums.CodeStatus;
 import megacom.sellservicejava.mappers.AppCodeMapper;
@@ -20,7 +22,8 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 @Transactional
 public class CodeServiceImpl implements CodeService {
 

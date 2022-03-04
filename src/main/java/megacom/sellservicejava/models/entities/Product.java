@@ -22,7 +22,9 @@ public class Product {
     String barcode;
 
     @ManyToOne
-    @Column(name = "id_categories")
+    @JoinColumn(name = "categories_id")
     Category category;
+
+
     boolean active;
 }

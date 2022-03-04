@@ -22,6 +22,8 @@ public class Price {
     String price;
     LocalDateTime startDate;
     LocalDateTime endDate;
+
     @ManyToOne
+    @JoinColumn(name = "id_Product")
     Product product;
 }

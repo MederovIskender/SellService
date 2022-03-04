@@ -12,4 +12,6 @@ public interface AppUserService {
     boolean AppUserLockOutChecking(AppUser appUser);
 
     ResponseEntity<?> getToken(String login, String code);
+
+    ResponseEntity<?> verifyToken(String token);
 }

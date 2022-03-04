@@ -20,5 +20,4 @@ public class Category {
     long id;
     String CategoryName;
     boolean active;
-
 }
