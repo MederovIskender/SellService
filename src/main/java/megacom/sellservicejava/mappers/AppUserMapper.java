@@ -9,8 +9,8 @@ import org.mapstruct.factory.Mappers;
 @Mapper
 public interface AppUserMapper {
     AppUserMapper INSTANCE = Mappers.getMapper(AppUserMapper.class);
-    AppUser AppUserCreateDtoToAppUser(AppUserCreationDto appUserCreationDto);
-    AppUserCreationDto AppUserToAppUserCreateDto(AppUser appUser);
+   AppUser AppUserCreateDtoToAppUser(AppUserCreationDto appUserCreationDto);
+   AppUserCreationDto AppUserToAppUserCreateDto(AppUser appUser);
     AppUser AppUserEntityDtoToAppUser(AppUserEntityDto appUserEntityDto);
     AppUserEntityDto AppUserToAppUserEntityDto(AppUser appUser);
 }

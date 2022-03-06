@@ -17,9 +17,10 @@ public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
+
     String name;
 
-    @Column(unique=true)
+    @Column(unique = true)
     String login;
     boolean active;
     LocalDateTime blockEndDate;

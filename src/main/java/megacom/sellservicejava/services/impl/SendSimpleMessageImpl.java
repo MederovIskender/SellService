@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class SendSimpleMessageImpl implements SendSimpleMessage {
-    @Autowired
+   @Autowired
     JavaMailSender mailSender;
 
     @Override

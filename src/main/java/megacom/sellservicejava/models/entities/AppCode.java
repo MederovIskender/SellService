@@ -3,9 +3,9 @@ package megacom.sellservicejava.models.entities;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import lombok.experimental.FieldDefaults;
 import megacom.sellservicejava.enums.CodeStatus;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -25,8 +25,8 @@ public class AppCode {
     LocalDateTime endDate;
     CodeStatus codeStatus;
 
-    @ManyToOne
-    @JoinColumn(name = "id_AppUser")
+    @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+    @JoinColumn(name = "AppUser_id")
     AppUser appUser;
 
 

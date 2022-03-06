@@ -10,6 +10,7 @@ import megacom.sellservicejava.models.dtos.AppCodeDtos.AppCodeEntityDto;
 import megacom.sellservicejava.models.dtos.appUserDtos.AppUserCreationDto;
 import megacom.sellservicejava.models.entities.AppCode;
 import megacom.sellservicejava.repos.CodeRepo;
+import megacom.sellservicejava.services.AppUserService;
 import megacom.sellservicejava.services.CodeService;
 import megacom.sellservicejava.services.SendSimpleMessage;
 import org.apache.catalina.User;
@@ -23,18 +24,19 @@ import java.util.Objects;
 
 @Service
 public class CodeServiceImpl implements CodeService {
-
-    public CodeServiceImpl(CodeRepo codeRepo, SendSimpleMessage sendSimpleMessage) {
+    public CodeServiceImpl(CodeRepo codeRepo, SendSimpleMessage sendSimpleMessage, AppUserServiceImpl appUserService) {
         this.codeRepo = codeRepo;
         this.sendSimpleMessage = sendSimpleMessage;
+        this.appUserService = appUserService;
     }
 
     CodeRepo codeRepo;
     SendSimpleMessage sendSimpleMessage;
+    AppUserService appUserService;
 
     @Override
     public void saveCode(AppCodeEntityDto appCodeEntityDto) {
-        codeRepo.save(AppCodeMapper.INSTANCE.AppCodeEntityDtoToAppCode(appCodeEntityDto));
+        codeRepo.saveAndFlush(AppCodeMapper.INSTANCE.AppCodeEntityDtoToAppCode(appCodeEntityDto));
     }
 
     @Override
@@ -44,21 +46,19 @@ public class CodeServiceImpl implements CodeService {
             lastCode.setCodeStatus(CodeStatus.CANCELLED);
             codeRepo.save(lastCode);
         }
-
         int code = (int) ((Math.random()*9000)+1000);
         String hashedCode = BCrypt.hashpw(Integer.toString(code),BCrypt.gensalt());
-
         AppCode savedCode = new AppCode();
         savedCode.setCode(hashedCode);
         savedCode.setEndDate(LocalDateTime.now().plusMinutes(3));
         savedCode.setCodeStatus(CodeStatus.NEW);
-        savedCode.setAppUser(AppUserMapper.INSTANCE.AppUserCreateDtoToAppUser(appUserCreationDto));
+        savedCode.setAppUser(appUserService.findUserByLogin(appUserCreationDto.getLogin()));
         codeRepo.save(savedCode);
         sendSimpleMessage.sendSimpleMessage(appUserCreationDto.getLogin(), Integer.toString(code));
     }
 
     @Override
     public AppCode findLastCode(AppUserCreationDto appUserCreationDto) {
-        return codeRepo.findByAppUserAndCodeStatus(AppUserMapper.INSTANCE.AppUserCreateDtoToAppUser(appUserCreationDto), CodeStatus.NEW);
+        return codeRepo.findByAppUserAndCodeStatus(appUserService.findUserByLogin(appUserCreationDto.getLogin()), CodeStatus.NEW);
     }
 }
