@@ -8,7 +8,7 @@ public interface AppUserEndPoint {
 
     ResponseEntity<?> sendCode(String login);
 
-    ResponseEntity<?> getToken(String login, String code);
+    ResponseEntity<?> verifyCode(String login, String code);
 
     ResponseEntity<?> verifyToken(String token);
 }

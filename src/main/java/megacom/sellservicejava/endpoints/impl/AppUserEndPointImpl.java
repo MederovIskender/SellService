@@ -62,7 +62,7 @@ public class AppUserEndPointImpl implements AppUserEndPoint {
         return ResponseEntity.ok("код успешно отправлен");
     }
     @Override
-    public ResponseEntity<?> getToken(String login, String code) {
+    public ResponseEntity<?> verifyCode(String login, String code) {
         AppUser appUser = appUserService.findUserByLogin(login);
         if(Objects.isNull(appUser)){
             return new ResponseEntity<>("Неверный логин", HttpStatus.NOT_FOUND);
@@ -97,7 +97,7 @@ public class AppUserEndPointImpl implements AppUserEndPoint {
                 .compact();
         checkUserCode.setCodeStatus(CodeStatus.APPROVED);
         codeService.saveCode(checkUserCode);
-        return ResponseEntity.ok("Вы успешно ввели пароль!");
+        return ResponseEntity.ok("Вы успешно ввели пароль!" + token);
     }
     @Override
     public ResponseEntity<?> verifyToken(String token) {
