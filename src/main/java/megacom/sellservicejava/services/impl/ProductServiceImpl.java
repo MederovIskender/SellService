@@ -42,12 +42,17 @@ public class ProductServiceImpl implements ProductService {
         while(Objects.nonNull(productRepo.findByBarcode(product.getBarcode()))) {
             product.setBarcode(generateBarcode());
         }
-        if(Objects.isNull(productRepo.findByProductName(productCreateDto.getProductName()))){
+        if(Objects.isNull(findProductByName(productCreateDto.getProductName()))){
             productRepo.save(product);
         } else {
             return new ResponseEntity<>("Такой продукт уже существует", HttpStatus.CONFLICT);
         }
         return ResponseEntity.ok("Продукт "+product.getProductName()+" был успешно сохранен");
+    }
+
+    @Override
+    public Product findProductByName(String name) {
+        return productRepo.findByProductName(name);
     }
 
     String generateBarcode(){

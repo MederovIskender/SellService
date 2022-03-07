@@ -22,6 +22,7 @@ public class Discount {
     String discount;
     LocalDateTime startDate;
     LocalDateTime endDate;
+    boolean active;
 
 
     @ManyToOne
