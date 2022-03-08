@@ -49,8 +49,7 @@ public class AppUserServiceImpl implements AppUserService {
             if(LocalDateTime.now().isBefore(appUser.getBlockEndDate())){
                 return true;
             }
-        }
-        return false;
+        } return false;
     }
 
     @Override
@@ -64,7 +63,6 @@ public class AppUserServiceImpl implements AppUserService {
                 .from(dateToConvert.atZone(ZoneId.systemDefault())
                         .toInstant());
     }
-
 
 }
 

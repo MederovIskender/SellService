@@ -5,13 +5,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class PriceCreateDto {
-    String price;
-    @JsonFormat(pattern = "")
-    String startDate;
-    String endDate;
-    String productName;
+    double price;
+    LocalDateTime startDate;
+    LocalDateTime endDate;
+    long productId;
 }

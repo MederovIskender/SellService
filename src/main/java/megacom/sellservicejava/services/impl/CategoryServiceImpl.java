@@ -23,18 +23,16 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public ResponseEntity<?> saveCategory(String token, CategoryCreateDto categoryCreateDto) {
-
-        ResponseEntity<?> responseEntity = appUserEndPoint.verifyToken(token);
-        if (!responseEntity.getStatusCode().equals(HttpStatus.OK)){
-            return responseEntity;
-        }
+    public Category saveCategory(String token, CategoryCreateDto categoryCreateDto) {
         Category newCategory = new Category();
         newCategory.setName(categoryCreateDto.getCategoryName());
         newCategory.setActive(true);
-        if(Objects.isNull(findCategoryByCategoryName(newCategory.getName())))
-        categoryRepo.save(newCategory);
-        return ResponseEntity.ok("Категория "+newCategory+" была успешно создана");
+        if(Objects.isNull(findCategoryByCategoryName(newCategory.getName()))){
+            categoryRepo.save(newCategory);
+            return newCategory;
+        } else {
+            return null;
+        }
     }
     public Category findCategoryByCategoryName(String name){
         return categoryRepo.findByName(name);

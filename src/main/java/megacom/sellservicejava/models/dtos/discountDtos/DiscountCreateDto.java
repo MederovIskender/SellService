@@ -10,8 +10,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DiscountCreateDto {
-    String discount;
-    String startDate;
-    String endDate;
-    String productName;
+    double discount;
+    LocalDateTime startDate;
+    LocalDateTime endDate;
+    Long productId;
 }

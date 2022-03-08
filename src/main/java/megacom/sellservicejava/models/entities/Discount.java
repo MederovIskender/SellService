@@ -19,7 +19,7 @@ public class Discount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
-    String discount;
+    double discount;
     LocalDateTime startDate;
     LocalDateTime endDate;
     boolean active;

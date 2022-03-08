@@ -19,7 +19,7 @@ public class Price {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
-    String price;
+    double price;
     LocalDateTime startDate;
     LocalDateTime endDate;
     boolean active;

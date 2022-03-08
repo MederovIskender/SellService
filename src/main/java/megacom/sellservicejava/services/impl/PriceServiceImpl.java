@@ -15,31 +15,28 @@ import java.util.List;
 
 @Service
 public class PriceServiceImpl implements PriceService {
-    AppUserEndPoint appUserEndPoint;
     PriceRepo priceRepo;
     ProductService productService;
 
-    public PriceServiceImpl(AppUserEndPoint appUserEndPoint, PriceRepo priceRepo, ProductService productService) {
-        this.appUserEndPoint = appUserEndPoint;
+    public PriceServiceImpl(PriceRepo priceRepo, ProductService productService) {
         this.priceRepo = priceRepo;
         this.productService = productService;
     }
 
     @Override
-    public ResponseEntity savePrice(String token, PriceCreateDto priceCreateDto) {
-        ResponseEntity<?> responseEntity = appUserEndPoint.verifyToken(token);
-        if (!responseEntity.getStatusCode().equals(HttpStatus.OK)){
-            return responseEntity;
-        }
+    public Price savePrice(PriceCreateDto priceCreateDto) {
         Price price = new Price();
         price.setPrice(priceCreateDto.getPrice());
         price.setActive(true);
-        price.setStartDate(LocalDateTime.parse(priceCreateDto.getStartDate()));
-        price.setEndDate(LocalDateTime.parse(priceCreateDto.getEndDate()));
-        price.setProduct(productService.findProductByName(priceCreateDto.getProductName()));
+        price.setStartDate(priceCreateDto.getStartDate());
+        price.setEndDate(priceCreateDto.getEndDate());
+        price.setProduct(productService.findProductById(priceCreateDto.getProductId()));
         List<Price> listOfPrices = priceRepo.findAllByProductAndActiveTrue(price.getProduct());
         for (Price p:listOfPrices){
-            if ((p.getStartDate().isAfter(price.getStartDate())&&
+            if(p.getStartDate().equals(price.getStartDate())||p.getEndDate().equals(price.getEndDate())){
+                p.setActive(false);
+                priceRepo.save(p);
+            } else if ((p.getStartDate().isAfter(price.getStartDate())&&
                     p.getStartDate().isBefore(price.getEndDate()))||
                     (p.getEndDate().isAfter(price.getStartDate())&&
                             p.getEndDate().isBefore(price.getEndDate()))
@@ -47,7 +44,7 @@ public class PriceServiceImpl implements PriceService {
                 priceRepo.save(p);
             }
         }
-        priceRepo.save(price);
-        return ResponseEntity.ok("Цена на "+ priceCreateDto.getProductName()+ " была успешно установлена");
+        price = priceRepo.save(price);
+        return price;
     }
 }

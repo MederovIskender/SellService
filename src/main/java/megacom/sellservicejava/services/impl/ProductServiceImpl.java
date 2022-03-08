@@ -17,23 +17,15 @@ import java.util.Random;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-    public ProductServiceImpl(AppUserEndPoint appUserEndPoint, ProductRepo productRepo, CategoryService categoryService) {
-        this.appUserEndPoint = appUserEndPoint;
+    public ProductServiceImpl(ProductRepo productRepo, CategoryService categoryService) {
         this.productRepo = productRepo;
         this.categoryService = categoryService;
     }
-
-    AppUserEndPoint appUserEndPoint;
     ProductRepo productRepo;
     CategoryService categoryService;
 
     @Override
-    public ResponseEntity<?> saveProduct(String token, ProductCreateDto productCreateDto) {
-
-        ResponseEntity<?> responseEntity = appUserEndPoint.verifyToken(token);
-        if (!responseEntity.getStatusCode().equals(HttpStatus.OK)){
-            return responseEntity;
-        }
+    public Product saveProduct(ProductCreateDto productCreateDto) {
         Product product = new Product();
         product.setProductName(productCreateDto.getProductName());
         product.setActive(true);
@@ -44,15 +36,20 @@ public class ProductServiceImpl implements ProductService {
         }
         if(Objects.isNull(findProductByName(productCreateDto.getProductName()))){
             productRepo.save(product);
+            return product;
         } else {
-            return new ResponseEntity<>("Такой продукт уже существует", HttpStatus.CONFLICT);
+            return null;
         }
-        return ResponseEntity.ok("Продукт "+product.getProductName()+" был успешно сохранен");
     }
 
     @Override
     public Product findProductByName(String name) {
         return productRepo.findByProductName(name);
+    }
+
+    @Override
+    public Product findProductById(long id) {
+        return productRepo.findProductById(id);
     }
 
     String generateBarcode(){

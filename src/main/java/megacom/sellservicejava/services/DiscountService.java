@@ -1,8 +1,8 @@
 package megacom.sellservicejava.services;
 
 import megacom.sellservicejava.models.dtos.discountDtos.DiscountCreateDto;
-import org.springframework.http.ResponseEntity;
+import megacom.sellservicejava.models.entities.Discount;
 
 public interface DiscountService {
-    ResponseEntity<?> saveDiscount(String token, DiscountCreateDto discountCreateDto);
+    Discount saveDiscount(DiscountCreateDto discountCreateDto);
 }

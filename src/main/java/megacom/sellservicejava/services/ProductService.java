@@ -5,6 +5,7 @@ import megacom.sellservicejava.models.entities.Product;
 import org.springframework.http.ResponseEntity;
 
 public interface ProductService {
-    ResponseEntity<?> saveProduct(String token, ProductCreateDto productCreateDto);
+    Product saveProduct(ProductCreateDto productCreateDto);
     Product findProductByName(String name);
+    Product findProductById(long id);
 }

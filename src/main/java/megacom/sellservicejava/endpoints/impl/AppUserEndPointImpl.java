@@ -53,7 +53,7 @@ public class AppUserEndPointImpl implements AppUserEndPoint {
             long remainingBlockTime = LocalDateTime.now().until(appUser.getBlockEndDate(), ChronoUnit.MILLIS);
             Duration dur = Duration.ofMillis(remainingBlockTime);
             long mm = dur.toMinutes();
-            long ss = dur.toSeconds();
+            long ss = dur.toSeconds()-(dur.toSeconds()-60);
             String remTime = String.format("%02d:%02d", mm,ss);
             return new ResponseEntity<>("Превышено количество попыток входа, вы заблокированы. Повторите попытку через " + remTime,
                     HttpStatus.CONFLICT);
@@ -88,12 +88,11 @@ public class AppUserEndPointImpl implements AppUserEndPoint {
             return new ResponseEntity<>("Авторизация не пройдена! Вы ввели некоректный код подтвеждения", HttpStatus.NOT_FOUND);
         }
         requestService.saveRequest(checkUserCode, true);
-        LocalDateTime tokensTimeLife = LocalDateTime.now().plusMinutes(5);
+        LocalDateTime tokensTimeLife = LocalDateTime.now().plusMinutes(20);
         String token = Jwts.builder()
                 .claim("login", login)
                 .setExpiration(appUserService.convertToDateViaInstant(tokensTimeLife))
-                .signWith(SignatureAlgorithm.HS256
-                        , secretKey)
+                .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
         checkUserCode.setCodeStatus(CodeStatus.APPROVED);
         codeService.saveCode(checkUserCode);
