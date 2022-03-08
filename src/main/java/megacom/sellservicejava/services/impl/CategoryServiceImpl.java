@@ -30,13 +30,13 @@ public class CategoryServiceImpl implements CategoryService {
             return responseEntity;
         }
         Category newCategory = new Category();
-        newCategory.setCategoryName(categoryCreateDto.getCategoryName());
+        newCategory.setName(categoryCreateDto.getCategoryName());
         newCategory.setActive(true);
-        if(Objects.isNull(findCategoryByCategoryName(newCategory.getCategoryName())))
+        if(Objects.isNull(findCategoryByCategoryName(newCategory.getName())))
         categoryRepo.save(newCategory);
         return ResponseEntity.ok("Категория "+newCategory+" была успешно создана");
     }
     public Category findCategoryByCategoryName(String name){
-        return categoryRepo.findByCategoryName(name);
+        return categoryRepo.findByName(name);
     }
 }

@@ -18,6 +18,6 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
-    String CategoryName;
+    String name;
     boolean active;
 }

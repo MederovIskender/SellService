@@ -90,7 +90,7 @@ public class AppUserEndPointImpl implements AppUserEndPoint {
         requestService.saveRequest(checkUserCode, true);
         LocalDateTime tokensTimeLife = LocalDateTime.now().plusMinutes(5);
         String token = Jwts.builder()
-                .claim("login e-mail", login)
+                .claim("login", login)
                 .setExpiration(appUserService.convertToDateViaInstant(tokensTimeLife))
                 .signWith(SignatureAlgorithm.HS256
                         , secretKey)

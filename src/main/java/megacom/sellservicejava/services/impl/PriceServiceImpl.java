@@ -44,6 +44,7 @@ public class PriceServiceImpl implements PriceService {
                     (p.getEndDate().isAfter(price.getStartDate())&&
                             p.getEndDate().isBefore(price.getEndDate()))
             ) { p.setActive(false);
+                priceRepo.save(p);
             }
         }
         priceRepo.save(price);

@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CategoryRepo extends JpaRepository<Category,Long> {
-    Category findByCategoryName (String categoryName);
+    Category findByName(String categoryName);
 }
