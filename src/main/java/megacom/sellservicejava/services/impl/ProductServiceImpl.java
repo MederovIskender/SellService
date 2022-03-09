@@ -1,14 +1,10 @@
 package megacom.sellservicejava.services.impl;
 
-import megacom.sellservicejava.endpoints.AppUserEndPoint;
 import megacom.sellservicejava.models.dtos.productDtos.ProductCreateDto;
-import megacom.sellservicejava.models.entities.Category;
 import megacom.sellservicejava.models.entities.Product;
 import megacom.sellservicejava.repos.ProductRepo;
 import megacom.sellservicejava.services.CategoryService;
 import megacom.sellservicejava.services.ProductService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -27,7 +23,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product saveProduct(ProductCreateDto productCreateDto) {
         Product product = new Product();
-        product.setProductName(productCreateDto.getProductName());
+        product.setName(productCreateDto.getProductName());
         product.setActive(true);
         product.setCategory(categoryService.findCategoryByCategoryName(productCreateDto.getCategoryName()));
         product.setBarcode(generateBarcode());

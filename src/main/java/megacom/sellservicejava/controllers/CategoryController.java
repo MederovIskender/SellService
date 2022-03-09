@@ -2,6 +2,7 @@ package megacom.sellservicejava.controllers;
 
 import megacom.sellservicejava.endpoints.CategoryEndpoint;
 import megacom.sellservicejava.models.dtos.categpryDtos.CategoryCreateDto;
+import megacom.sellservicejava.models.dtos.categpryDtos.CategoryId;
 import megacom.sellservicejava.services.CategoryService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,5 +19,9 @@ public class CategoryController {
     @PostMapping("/save")
     public ResponseEntity<?> saveCategory(@RequestHeader String token, @RequestBody CategoryCreateDto categoryCreateDto){
         return categoryEndpoint.saveCategory(token, categoryCreateDto);
+    }
+    @GetMapping("/getActualInfo")
+    public ResponseEntity<?> getActualInfo(@RequestHeader String token, @RequestParam long categoryId){
+        return categoryEndpoint.getActualInfo(token,categoryId);
     }
 }

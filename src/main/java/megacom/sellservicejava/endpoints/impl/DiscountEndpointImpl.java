@@ -28,6 +28,9 @@ public class DiscountEndpointImpl implements DiscountEndpoint {
             return responseEntity;
         }
         Discount discount = discountService.saveDiscount(discountCreateDto);
+        if (discount.getDiscount()>=100){
+            return new ResponseEntity<>("Скидка не может быть больше 100%", HttpStatus.CONFLICT);
+        }
         if (Objects.isNull(discount)){
             return new ResponseEntity<>("Скидка не создана", HttpStatus.NOT_FOUND);
         }

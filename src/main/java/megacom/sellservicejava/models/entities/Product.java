@@ -18,7 +18,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
-    String productName;
+    String name;
     String barcode;
 
     @ManyToOne
