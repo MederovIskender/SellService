@@ -13,6 +13,8 @@ import java.util.List;
 public interface CategoryRepo extends JpaRepository<Category,Long> {
     Category findByName(String categoryName);
 
-    @Query("Select p.name,d.discount,p2.price from products p")
+    @Query(value ="Select p.name,d.discount,p2.price from products p" +
+            "innerjoin discounts d on p.id=d.id_Product" +
+            "innerjoin prices p2 on p.id=id_Product where d.active = true and p2.active =true and p.categories_id=?1", nativeQuery = true)
     List<ActualProductPriceDiscountDto>findActualInfoByCategoryId(long categoryId);
 }

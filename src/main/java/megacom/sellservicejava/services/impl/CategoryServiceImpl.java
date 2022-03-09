@@ -41,5 +41,5 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<ActualProductPriceDiscountDto> getActualInfoPerCategory(long categoryId) {
-        return null;    }
+        return categoryRepo.findActualInfoByCategoryId(categoryId);  }
 }

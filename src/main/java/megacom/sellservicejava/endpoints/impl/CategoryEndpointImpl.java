@@ -45,7 +45,6 @@ public class CategoryEndpointImpl implements CategoryEndpoint {
             return responseEntity;
         }
         List<ActualProductPriceDiscountDto>actualInfo = categoryService.getActualInfoPerCategory(categoryId);
-
-        return responseEntity;
+        return ResponseEntity.ok(actualInfo);
     }
 }
