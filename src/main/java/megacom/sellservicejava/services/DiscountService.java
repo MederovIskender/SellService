@@ -5,4 +5,6 @@ import megacom.sellservicejava.models.entities.Discount;
 
 public interface DiscountService {
     Discount saveDiscount(DiscountCreateDto discountCreateDto);
+
+    double findActualDiscount(Long productId);
 }

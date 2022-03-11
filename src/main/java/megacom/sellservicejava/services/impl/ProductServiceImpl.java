@@ -1,12 +1,16 @@
 package megacom.sellservicejava.services.impl;
 
+import megacom.sellservicejava.mappers.ProductMapper;
+import megacom.sellservicejava.models.dtos.categpryDtos.ActualProductPriceDiscountDto;
 import megacom.sellservicejava.models.dtos.productDtos.ProductCreateDto;
+import megacom.sellservicejava.models.dtos.productDtos.ProductEntityDto;
 import megacom.sellservicejava.models.entities.Product;
 import megacom.sellservicejava.repos.ProductRepo;
 import megacom.sellservicejava.services.CategoryService;
 import megacom.sellservicejava.services.ProductService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
@@ -40,12 +44,22 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product findProductByName(String name) {
-        return productRepo.findByProductName(name);
+        return productRepo.findByName(name);
     }
 
     @Override
     public Product findProductById(long id) {
         return productRepo.findProductById(id);
+    }
+
+    @Override
+    public List<Product> findAllProductsByCategory(long categoryId) {
+        return productRepo.findAllProductsByCategory(categoryId);
+    }
+
+    @Override
+    public Product findProductByBarcode(String barcode) {
+        return productRepo.findByBarcode(barcode);
     }
 
     String generateBarcode(){

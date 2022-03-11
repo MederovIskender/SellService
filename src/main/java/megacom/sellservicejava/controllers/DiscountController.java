@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 public class DiscountController {
     DiscountEndpoint discountEndpoint;
 
+    public DiscountController(DiscountEndpoint discountEndpoint) {
+        this.discountEndpoint = discountEndpoint;
+    }
 
     @PostMapping("/save")
     public ResponseEntity<?> saveDiscount(@RequestHeader String token, @RequestBody DiscountCreateDto discountCreateDto){

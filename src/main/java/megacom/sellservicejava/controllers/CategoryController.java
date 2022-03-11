@@ -20,8 +20,4 @@ public class CategoryController {
     public ResponseEntity<?> saveCategory(@RequestHeader String token, @RequestBody CategoryCreateDto categoryCreateDto){
         return categoryEndpoint.saveCategory(token, categoryCreateDto);
     }
-    @GetMapping("/getActualInfo")
-    public ResponseEntity<?> getActualInfo(@RequestHeader String token, @RequestParam long categoryId){
-        return categoryEndpoint.getActualInfo(token,categoryId);
-    }
 }

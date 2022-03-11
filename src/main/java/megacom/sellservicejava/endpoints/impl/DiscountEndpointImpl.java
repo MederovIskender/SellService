@@ -1,5 +1,7 @@
 package megacom.sellservicejava.endpoints.impl;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import megacom.sellservicejava.endpoints.AppUserEndPoint;
 import megacom.sellservicejava.endpoints.DiscountEndpoint;
 import megacom.sellservicejava.models.dtos.discountDtos.DiscountCreateDto;
@@ -13,13 +15,14 @@ import java.util.Objects;
 
 @Service
 public class DiscountEndpointImpl implements DiscountEndpoint {
-    DiscountService discountService;
-    AppUserEndPoint appUserEndPoint;
-
     public DiscountEndpointImpl(DiscountService discountService, AppUserEndPoint appUserEndPoint) {
         this.discountService = discountService;
         this.appUserEndPoint = appUserEndPoint;
     }
+
+    DiscountService discountService;
+    AppUserEndPoint appUserEndPoint;
+
 
     @Override
     public ResponseEntity<?> saveDiscount(String token, DiscountCreateDto discountCreateDto) {

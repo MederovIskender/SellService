@@ -11,6 +11,4 @@ import java.util.List;
 public interface CategoryService {
     Category saveCategory(String token, CategoryCreateDto categoryCreateDto);
     Category findCategoryByCategoryName(String name);
-
-    List<ActualProductPriceDiscountDto> getActualInfoPerCategory(long categoryId);
 }

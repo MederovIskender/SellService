@@ -38,13 +38,4 @@ public class CategoryEndpointImpl implements CategoryEndpoint {
         return ResponseEntity.ok("Категория "+category+" была успешно создана");
     }
 
-    @Override
-    public ResponseEntity<?> getActualInfo(String token, long categoryId) {
-        ResponseEntity<?> responseEntity = appUserEndPoint.verifyToken(token);
-        if (!responseEntity.getStatusCode().equals(HttpStatus.OK)){
-            return responseEntity;
-        }
-        List<ActualProductPriceDiscountDto>actualInfo = categoryService.getActualInfoPerCategory(categoryId);
-        return ResponseEntity.ok(actualInfo);
-    }
 }

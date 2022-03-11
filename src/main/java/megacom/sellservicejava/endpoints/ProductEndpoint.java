@@ -5,4 +5,5 @@ import org.springframework.http.ResponseEntity;
 
 public interface ProductEndpoint {
     ResponseEntity<?> saveProduct(String token, ProductCreateDto productCreateDto);
+
 }

@@ -1,5 +1,7 @@
 package megacom.sellservicejava.services.impl;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import megacom.sellservicejava.endpoints.AppUserEndPoint;
 import megacom.sellservicejava.models.dtos.priceDtos.PriceCreateDto;
 import megacom.sellservicejava.models.entities.Price;
@@ -13,15 +15,16 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+
 @Service
 public class PriceServiceImpl implements PriceService {
-    PriceRepo priceRepo;
-    ProductService productService;
-
     public PriceServiceImpl(PriceRepo priceRepo, ProductService productService) {
         this.priceRepo = priceRepo;
         this.productService = productService;
     }
+
+    PriceRepo priceRepo;
+    ProductService productService;
 
     @Override
     public Price savePrice(PriceCreateDto priceCreateDto) {
@@ -46,5 +49,10 @@ public class PriceServiceImpl implements PriceService {
         }
         price = priceRepo.save(price);
         return price;
+    }
+
+    @Override
+    public double findActualPrice(Long productId) {
+        return priceRepo.findActualPrice(productId);
     }
 }

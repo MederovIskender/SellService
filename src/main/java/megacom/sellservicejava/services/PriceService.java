@@ -6,4 +6,5 @@ import org.springframework.http.ResponseEntity;
 
 public interface PriceService {
     Price savePrice(PriceCreateDto priceCreateDto);
+    double findActualPrice(Long productId);
 }

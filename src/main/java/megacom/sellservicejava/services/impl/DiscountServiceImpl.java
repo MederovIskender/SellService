@@ -47,4 +47,9 @@ public class DiscountServiceImpl implements DiscountService {
         discount = discountRepo.save(discount);
         return discount;
     }
+
+    @Override
+    public double findActualDiscount(Long productId) {
+        return discountRepo.findActualDiscount(productId);
+    }
 }
