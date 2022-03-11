@@ -122,12 +122,12 @@ public class OperationEndpointImpl implements OperationEndpoint {
     }
 
     @Override
-    public ResponseEntity<?> payment(String token, PaymentInputDto paymentInputDto) {
+    public ResponseEntity<?> payment(String token, Long operationId, double cash) {
         ResponseEntity<?> responseEntity = appUserEndPoint.verifyToken(token);
         if (!responseEntity.getStatusCode().equals(HttpStatus.OK)){
             return responseEntity;
         }
-        Operation operation = operationService.findOperationById(paymentInputDto.getOperationId());
+        Operation operation = operationService.findOperationById(operationId);
 
         if (Objects.isNull(operation)) {
             return new ResponseEntity<>(
@@ -136,7 +136,7 @@ public class OperationEndpointImpl implements OperationEndpoint {
                     , HttpStatus.NOT_FOUND);
         }
 
-        double change = paymentInputDto.getCash() - operation.getTotalAmount();
+        double change = cash - operation.getTotalAmount();
 
         if (change < 0) {
             return new ResponseEntity<>(
@@ -144,7 +144,7 @@ public class OperationEndpointImpl implements OperationEndpoint {
                     , HttpStatus.CONFLICT);
         }
 
-        operation.setCash(paymentInputDto.getCash());
+        operation.setCash(cash);
         operation.setChange(change);
 
         operationService.save(operation);

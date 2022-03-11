@@ -22,7 +22,7 @@ public class OperationController {
     }
 
     @GetMapping("/payment")
-    public ResponseEntity<?> payment(@RequestHeader String token, @RequestBody PaymentInputDto paymentInputDto) {
-        return operationEndpoint.payment(token, paymentInputDto);
+    public ResponseEntity<?> payment(@RequestHeader String token, @RequestParam Long operationId, @RequestParam double cash) {
+        return operationEndpoint.payment(token, operationId, cash);
     }
 }

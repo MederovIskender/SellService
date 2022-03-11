@@ -9,6 +9,6 @@ import java.util.List;
 public interface OperationEndpoint {
     ResponseEntity<?> provideOperation(String token, List<InputForOperation> sellingList);
 
-    ResponseEntity<?> payment(String token, PaymentInputDto paymentInputDto);
+    ResponseEntity<?> payment(String token, Long operationId, double cash);
 
 }

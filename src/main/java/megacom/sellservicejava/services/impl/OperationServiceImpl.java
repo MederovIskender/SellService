@@ -23,14 +23,18 @@ public class OperationServiceImpl implements OperationService {
     AppUserService appUserService;
     OperationDetailService operationDetailService;
 
-    public OperationServiceImpl(ProductService productService, PriceService priceService,
-                                DiscountService discountService, OperationRepo operationRepo,
-                                AppUserService appUserService) {
+    public OperationServiceImpl(ProductService productService,
+                                PriceService priceService,
+                                DiscountService discountService,
+                                OperationRepo operationRepo,
+                                AppUserService appUserService,
+                                OperationDetailService operationDetailService) {
         this.productService = productService;
         this.priceService = priceService;
         this.discountService = discountService;
         this.operationRepo = operationRepo;
         this.appUserService = appUserService;
+        this.operationDetailService = operationDetailService;
     }
 
     @Override
